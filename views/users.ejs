@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+<h1>Utilisateurs</h1>
+<div class="grid two">
+  <div class="card">
+    <h3>Créer un utilisateur</h3>
+    <form method="POST" action="/users">
+      <label>Nom d'utilisateur
+        <input type="text" name="username" required>
+      </label>
+      <label>Mot de passe
+        <input type="text" name="password" required>
+      </label>
+      <label>Rôle
+        <select name="role">
+          <option value="sales">sales</option>
+          <option value="production">production</option>
+          <option value="admin">admin</option>
+        </select>
+      </label>
+      <button type="submit">Créer</button>
+    </form>
+  </div>
+  <div class="card">
+    <h3>Liste</h3>
+    <table class="table">
+      <thead><tr><th>ID</th><th>User</th><th>Rôle</th><th>Créé le</th></tr></thead>
+      <tbody>
+        <% users.forEach(u => { %>
+          <tr>
+            <td><%= u.id %></td>
+            <td><%= u.username %></td>
+            <td><%= u.role %></td>
+            <td><%= u.created_at %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include('partials/footer') %>
