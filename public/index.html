@@ -1,0 +1,99 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZARBITI Ops Console</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .hero {
+      background: linear-gradient(120deg, #0c5dbb, #0c8b92);
+      color: #fff;
+      padding: 60px 20px;
+    }
+    .hero h1 { margin: 0 0 12px; font-size: 32px; }
+    .hero p { max-width: 720px; font-size: 17px; }
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .brand-card {
+      background: #fff;
+      border-radius: 6px;
+      padding: 14px;
+      color: #1c1c1c;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    .brand-card h3 { margin-top: 0; }
+    .steps { list-style: decimal inside; padding-left: 0; }
+    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .tag { display: inline-block; padding: 4px 8px; border-radius: 4px; background: #f0f4fb; margin-right: 6px; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="container">
+      <h1>Plateforme opérations tapis</h1>
+      <p>
+        Centralisez la saisie des commandes, le suivi production et le pilotage JAX DELIVERY
+        pour les trois marques ZARBITI, BMT (Bonjour Mon Tapis) et TBP (Tapis Bon Prix).
+      </p>
+      <div class="cta-row">
+        <a class="button" href="/login">Se connecter</a>
+        <a class="button" href="/orders">Aller aux commandes</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: -30px;">
+    <div class="card">
+      <h2>Marques et canaux</h2>
+      <div class="brand-grid">
+        <div class="brand-card">
+          <h3>ZARBITI</h3>
+          <p>Canaux: Facebook, Instagram, TikTok</p>
+          <div class="tag">Usage: Home</div>
+          <div class="tag">Produits: Tapis maison</div>
+        </div>
+        <div class="brand-card">
+          <h3>BMT (Bonjour Mon Tapis)</h3>
+          <p>Canaux: Facebook, Instagram, TikTok</p>
+          <div class="tag">Usage: Kids</div>
+          <div class="tag">Produits: Tapis enfants</div>
+        </div>
+        <div class="brand-card">
+          <h3>TBP (Tapis Bon Prix)</h3>
+          <p>Canaux: Facebook, Instagram, TikTok</p>
+          <div class="tag">Usage: Cuisine &amp; Salle de bain</div>
+          <div class="tag">Produits: Tapis cuisine &amp; bain</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Fonctionnalités principales</h2>
+      <ul class="steps">
+        <li>Saisie des commandes multi-design (prix, livraison, recalcul COD).</li>
+        <li>Confirmation et mise en lot automatique des lignes à la validation.</li>
+        <li>Suivi production par lot avec changements d'état et export CSV.</li>
+        <li>Suivi JAX DELIVERY : total COD attendu, payé et restant.</li>
+        <li>Gestion des rôles : ventes, production, administrateur.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Accès rapide</h2>
+      <div class="cta-row">
+        <a class="button" href="/orders">Commandes</a>
+        <a class="button" href="/production">Production</a>
+        <a class="button" href="/jax">JAX DELIVERY</a>
+        <a class="button" href="/users">Utilisateurs</a>
+      </div>
+      <p class="hint" style="margin-top: 10px;">Utilisez les identifiants démo dans le README pour tester.</p>
+    </div>
+  </div>
+</body>
+</html>
