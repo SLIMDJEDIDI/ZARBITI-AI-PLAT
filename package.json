@@ -1,0 +1,17 @@
+{
+  "name": "zarbiti-platform",
+  "version": "1.0.0",
+  "description": "Centralized order and production tracking for carpet brands.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.0",
+    "body-parser": "^1.20.3",
+    "csv-stringify": "^6.5.1",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  }
+}
