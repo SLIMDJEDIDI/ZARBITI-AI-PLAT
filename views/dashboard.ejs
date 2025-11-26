@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+<h1>Tableau de bord</h1>
+<div class="grid">
+  <div class="card">
+    <h3>Commandes par statut</h3>
+    <ul>
+      <% stats.forEach(s => { %>
+        <li><strong><%= s.status %></strong> : <%= s.count %></li>
+      <% }) %>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Commandes par marque</h3>
+    <ul>
+      <% byBrand.forEach(b => { %>
+        <li><strong><%= b.brand %></strong> : <%= b.count %></li>
+      <% }) %>
+    </ul>
+  </div>
+</div>
+<%- include('partials/footer') %>
