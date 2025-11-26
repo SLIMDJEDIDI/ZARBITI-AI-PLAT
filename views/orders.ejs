@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+<div class="page-header">
+  <h1>Commandes</h1>
+  <div>
+    <a class="button" href="/orders/new">Nouvelle commande</a>
+  </div>
+</div>
+<form class="filters" method="GET" action="/orders">
+  <label>Status
+    <select name="status">
+      <option value="">Tous</option>
+      <option value="NOUVEAU" <%= filter.status==='NOUVEAU' ? 'selected' : '' %>>NOUVEAU</option>
+      <option value="A_CONFIRMER" <%= filter.status==='A_CONFIRMER' ? 'selected' : '' %>>A_CONFIRMER</option>
+      <option value="CONFIRME" <%= filter.status==='CONFIRME' ? 'selected' : '' %>>CONFIRME</option>
+      <option value="EN_PRODUCTION" <%= filter.status==='EN_PRODUCTION' ? 'selected' : '' %>>EN PRODUCTION</option>
+      <option value="TERMINE" <%= filter.status==='TERMINE' ? 'selected' : '' %>>TERMINE</option>
+      <option value="ARCHIVE" <%= filter.status==='ARCHIVE' ? 'selected' : '' %>>ARCHIVE</option>
+    </select>
+  </label>
+  <label>Marque
+    <select name="brand">
+      <option value="">Toutes</option>
+      <option value="ZARBITI" <%= filter.brand==='ZARBITI' ? 'selected' : '' %>>ZARBITI</option>
+      <option value="BMT" <%= filter.brand==='BMT' ? 'selected' : '' %>>BMT</option>
+      <option value="TBP" <%= filter.brand==='TBP' ? 'selected' : '' %>>TBP</option>
+    </select>
+  </label>
+  <label>Recherche
+    <input type="text" name="search" value="<%= filter.search||'' %>" placeholder="ID ou nom">
+  </label>
+  <label>Téléphone
+    <input type="text" name="phone" value="<%= filter.phone||'' %>">
+  </label>
+  <label>Du
+    <input type="date" name="from" value="<%= filter.from||'' %>">
+  </label>
+  <label>Au
+    <input type="date" name="to" value="<%= filter.to||'' %>">
+  </label>
+  <button type="submit">Filtrer</button>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Marque</th>
+      <th>Client</th>
+      <th>Statut</th>
+      <th>COD attendu</th>
+      <th>Créé le</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% orders.forEach(o => { %>
+      <tr>
+        <td><a href="/orders/<%= o.id %>"><%= o.order_code %></a></td>
+        <td><%= o.brand %></td>
+        <td><%= o.customer_name || '' %> (<%= o.customer_phone %>)</td>
+        <td><%= o.status %></td>
+        <td><%= o.expected_cod_display.toFixed(2) %> TND</td>
+        <td><%= o.created_at %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include('partials/footer') %>
