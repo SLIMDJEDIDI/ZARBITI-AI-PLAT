@@ -1,0 +1,94 @@
+<%- include('partials/header') %>
+<h1>Commande <%= order.order_code %> - <%= order.brand %></h1>
+<div class="grid two">
+  <div class="card">
+    <h3>Client</h3>
+    <p><strong>Nom :</strong> <%= order.customer_name || 'N/A' %></p>
+    <p><strong>Téléphone :</strong> <%= order.customer_phone %></p>
+    <p><strong>Adresse :</strong> <%= order.customer_address || '' %>, <%= order.customer_city || '' %></p>
+    <p><strong>Usage :</strong> <%= order.usage_type || 'N/A' %></p>
+    <form method="POST" action="/orders/<%= order.id %>/delivery-fee">
+      <label>Frais de livraison (TND)
+        <input type="number" step="0.01" name="delivery_fee" value="<%= order.delivery_fee_display %>">
+      </label>
+      <button type="submit">Mettre à jour frais</button>
+    </form>
+  </div>
+  <div class="card">
+    <h3>Statuts</h3>
+    <p>Commande : <strong><%= order.status %></strong></p>
+    <p>COD attendu : <strong><%= order.expected_cod_display.toFixed(2) %> TND</strong></p>
+    <form method="POST" action="/orders/<%= order.id %>/status">
+      <label>Changer le statut
+        <select name="status">
+          <option value="NOUVEAU">NOUVEAU</option>
+          <option value="A_CONFIRMER">A_CONFIRMER</option>
+          <option value="CONFIRME">CONFIRME (envoie en production)</option>
+          <option value="EN_PRODUCTION">EN_PRODUCTION</option>
+          <option value="TERMINE">TERMINE</option>
+          <option value="ARCHIVE">ARCHIVE</option>
+        </select>
+      </label>
+      <button type="submit">Appliquer</button>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Lignes de commande</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Design</th>
+        <th>Taille</th>
+        <th>Quantité</th>
+        <th>PU</th>
+        <th>Total</th>
+        <th>Batch</th>
+        <th>Statut</th>
+        <% if (canEdit) { %><th>Actions</th><% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% items.forEach(item => { %>
+        <tr>
+          <td><%= item.design_name %></td>
+          <td><%= item.size_text || '' %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.unit_price_display.toFixed(2) %> TND</td>
+          <td><%= item.line_total_display.toFixed(2) %> TND</td>
+          <td><%= item.batch_code || '-' %></td>
+          <td><%= item.item_status %></td>
+          <% if (canEdit) { %>
+            <td>
+              <form method="POST" action="/orders/<%= order.id %>/items/<%= item.id %>/delete" onsubmit="return confirm('Supprimer la ligne ?');">
+                <button type="submit">Supprimer</button>
+              </form>
+            </td>
+          <% } %>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% if (canEdit) { %>
+    <h4>Ajouter une ligne</h4>
+    <form method="POST" action="/orders/<%= order.id %>/items" class="grid four">
+      <label>Design
+        <input type="text" name="design_name" required>
+      </label>
+      <label>Taille
+        <input type="text" name="size_text" placeholder="160x230">
+      </label>
+      <label>Quantité
+        <input type="number" name="quantity" value="1" min="1">
+      </label>
+      <label>Prix unitaire (TND)
+        <input type="number" step="0.01" name="unit_price" value="0">
+      </label>
+      <button type="submit">Ajouter</button>
+    </form>
+  <% } else { %>
+    <p class="hint">Les lignes ne peuvent plus être modifiées après confirmation.</p>
+  <% } %>
+</div>
+<%- include('partials/footer') %>
