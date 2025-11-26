@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Zarbiti Platform</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">ZARBITI Ops</div>
+    <% if (currentUser) { %>
+      <nav>
+        <a href="/">Dashboard</a>
+        <a href="/orders">Commandes</a>
+        <% if (currentUser.role === 'production' || currentUser.role === 'admin') { %>
+          <a href="/production">Production</a>
+        <% } %>
+        <% if (currentUser.role === 'admin') { %>
+          <a href="/jax">JAX</a>
+          <a href="/users">Utilisateurs</a>
+        <% } %>
+      </nav>
+      <form method="POST" action="/logout" class="logout-form">
+        <span class="user-tag"><%= currentUser.username %> (<%= currentUser.role %>)</span>
+        <button type="submit">Déconnexion</button>
+      </form>
+    <% } %>
+  </header>
+  <main class="container">
