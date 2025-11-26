@@ -1,0 +1,64 @@
+<%- include('partials/header') %>
+<div class="page-header">
+  <h1>Liste production</h1>
+  <div>
+    <a class="button" href="/production?format=csv">Exporter CSV</a>
+  </div>
+</div>
+<form class="filters" method="GET" action="/production">
+  <label>Statut
+    <select name="status">
+      <option value="">Tous</option>
+      <option value="A_PRODUIRE" <%= filter.status==='A_PRODUIRE'?'selected':'' %>>A_PRODUIRE</option>
+      <option value="EN_PRODUCTION" <%= filter.status==='EN_PRODUCTION'?'selected':'' %>>EN_PRODUCTION</option>
+      <option value="TERMINE" <%= filter.status==='TERMINE'?'selected':'' %>>TERMINE</option>
+    </select>
+  </label>
+  <label>Marque
+    <select name="brand">
+      <option value="">Toutes</option>
+      <option value="ZARBITI" <%= filter.brand==='ZARBITI'?'selected':'' %>>ZARBITI</option>
+      <option value="BMT" <%= filter.brand==='BMT'?'selected':'' %>>BMT</option>
+      <option value="TBP" <%= filter.brand==='TBP'?'selected':'' %>>TBP</option>
+    </select>
+  </label>
+  <label>Batch
+    <input type="text" name="batch" value="<%= filter.batch||'' %>">
+  </label>
+  <button type="submit">Filtrer</button>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Batch</th>
+      <th>Commande</th>
+      <th>Marque</th>
+      <th>Design</th>
+      <th>Taille</th>
+      <th>Quantité</th>
+      <th>Statut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(item => { %>
+      <tr>
+        <td><%= item.batch_code || '-' %></td>
+        <td><%= item.order_code %></td>
+        <td><%= item.brand %></td>
+        <td><%= item.design_name %></td>
+        <td><%= item.size_text || '' %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.item_status %></td>
+        <td>
+          <% if (item.item_status !== 'TERMINE') { %>
+            <form method="POST" action="/production/<%= item.id %>/status">
+              <button type="submit">Passer à l'étape suivante</button>
+            </form>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include('partials/footer') %>
